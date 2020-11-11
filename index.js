@@ -6,8 +6,8 @@
 /* Dependencies */
 const path = require("path");
 const nunjucks = require("nunjucks");
-const Interface = require("@sapling/sapling").drivers.render.Interface;
-const { console } = require("@sapling/sapling").lib.Cluster;
+const Interface = require("@sapling/sapling/drivers/render/Interface");
+const { console } = require("@sapling/sapling/lib/Cluster");
 
 
 module.exports = class Nunjucks extends Interface {

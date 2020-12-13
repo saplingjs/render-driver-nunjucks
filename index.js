@@ -41,9 +41,9 @@ module.exports = class Nunjucks extends Interface {
 	/**
 	 * Register custom tags with the template engine
 	 * 
-	 * @param {object} hooks Object of functions
+	 * @param {object} tags Object of functions
 	 */
-	async registerHooks(hooks) {
-		throw new Error("Method not implemented: registerHooks")
+	async registerTags(tags) {
+		throw new Error("Method not implemented: registerTags")
 	}
 };

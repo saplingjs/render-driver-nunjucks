@@ -34,7 +34,11 @@ module.exports = class Nunjucks extends Interface {
 	 * @param {object} data Object of data to pass to the template
 	 */
 	async render(template, data) {
-		return this.engine.render(template, data);
+		return new Promise((resolve, reject) => {
+			this.engine.render(template, data, (err, res) => {
+				resolve(res);
+			});
+		});
 	}
 
 
@@ -44,6 +48,28 @@ module.exports = class Nunjucks extends Interface {
 	 * @param {object} tags Object of functions
 	 */
 	async registerTags(tags) {
-		throw new Error("Method not implemented: registerTags")
+		function GetExtension(cb) {
+			this.tags = ['get'];
+
+			this.parse = (parser, nodes, lexer) => {
+				var tok = parser.nextToken();
+				var args = parser.parseSignature(null, true);
+				parser.advanceAfterBlockEnd(tok.value);
+
+				return new nodes.CallExtensionAsync(this, 'run', args, cb);
+			};
+
+			this.run = async (context, args, cb) => {
+				console.log("TAG ARGS", args);
+				let key = args instanceof Object && Object.keys(args).filter(e => e != '__keywords')[0];
+
+				/* Set var based on fetched data */
+				context.ctx[key] = await tags.get(args[key], args.role ? args.role : null);
+
+				cb && cb();
+			};
+		}
+
+		this.engine.addExtension('GetExtension', new GetExtension());
 	}
 };

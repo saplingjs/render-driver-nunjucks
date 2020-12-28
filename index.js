@@ -7,7 +7,9 @@
 const path = require("path");
 const nunjucks = require("nunjucks");
 const Interface = require("@sapling/sapling/drivers/render/Interface");
+
 const { console } = require("@sapling/sapling/lib/Cluster");
+const SaplingError = require("@sapling/sapling/lib/SaplingError");
 
 
 module.exports = class Nunjucks extends Interface {
@@ -15,12 +17,13 @@ module.exports = class Nunjucks extends Interface {
 	/**
 	 * Initialise Nunjucks
 	 */
-	constructor(App) {
+	constructor(App, viewsPath) {
 		super();
 
 		this.app = App;
+		this.viewsPath = viewsPath;
 
-		this.engine = nunjucks.configure(path.resolve(this.app.dir, this.app.config.viewsDir), {
+		this.engine = nunjucks.configure(this.viewsPath, {
 			autoescape: true,
 			noCache: !(this.app.config.production === 'on' || this.app.config.production === true)
 		});
@@ -36,6 +39,9 @@ module.exports = class Nunjucks extends Interface {
 	async render(template, data) {
 		return new Promise((resolve, reject) => {
 			this.engine.render(template, data, (err, res) => {
+				if(err)
+					resolve(new SaplingError(err));
+
 				resolve(res);
 			});
 		});
@@ -60,7 +66,6 @@ module.exports = class Nunjucks extends Interface {
 			};
 
 			this.run = async (context, args, cb) => {
-				console.log("TAG ARGS", args);
 				let key = args instanceof Object && Object.keys(args).filter(e => e != '__keywords')[0];
 
 				/* Set var based on fetched data */

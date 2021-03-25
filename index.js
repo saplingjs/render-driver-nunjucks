@@ -4,16 +4,13 @@
 
 
 /* Dependencies */
-const path = require("path");
-const nunjucks = require("nunjucks");
-const Interface = require("@sapling/sapling/drivers/render/Interface");
+const nunjucks = require('nunjucks');
+const Interface = require('@sapling/sapling/drivers/render/Interface');
 
-const { console } = require("@sapling/sapling/lib/Cluster");
-const SaplingError = require("@sapling/sapling/lib/SaplingError");
+const SaplingError = require('@sapling/sapling/lib/SaplingError');
 
 
 module.exports = class Nunjucks extends Interface {
-
 	/**
 	 * Initialise Nunjucks
 	 */
@@ -32,17 +29,18 @@ module.exports = class Nunjucks extends Interface {
 
 	/**
 	 * Render a template file
-	 * 
+	 *
 	 * @param {string} template Path of the template file being rendered, relative to views/
 	 * @param {object} data Object of data to pass to the template
 	 */
 	async render(template, data) {
 		return new Promise((resolve, reject) => {
-			this.engine.render(template, data, (err, res) => {
-				if(err)
-					resolve(new SaplingError(err));
+			this.engine.render(template, data, (error, response) => {
+				if (error) {
+					reject(new SaplingError(error));
+				}
 
-				resolve(res);
+				resolve(response);
 			});
 		});
 	}
@@ -50,28 +48,30 @@ module.exports = class Nunjucks extends Interface {
 
 	/**
 	 * Register custom tags with the template engine
-	 * 
+	 *
 	 * @param {object} tags Object of functions
 	 */
 	async registerTags(tags) {
 		function GetExtension(cb) {
 			this.tags = ['get'];
 
-			this.parse = (parser, nodes, lexer) => {
-				var tok = parser.nextToken();
-				var args = parser.parseSignature(null, true);
+			this.parse = (parser, nodes) => {
+				const tok = parser.nextToken();
+				const args = parser.parseSignature(null, true);
 				parser.advanceAfterBlockEnd(tok.value);
 
 				return new nodes.CallExtensionAsync(this, 'run', args, cb);
 			};
 
 			this.run = async (context, args, cb) => {
-				let key = args instanceof Object && Object.keys(args).filter(e => e != '__keywords')[0];
+				const key = args instanceof Object && Object.keys(args).find(arg => arg !== '__keywords');
 
 				/* Set var based on fetched data */
 				context.ctx[key] = await tags.get(args[key], args.role ? args.role : null);
 
-				cb && cb();
+				if (cb) {
+					cb();
+				}
 			};
 		}
 

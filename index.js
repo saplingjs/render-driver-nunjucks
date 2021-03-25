@@ -34,10 +34,10 @@ module.exports = class Nunjucks extends Interface {
 	 * @param {object} data Object of data to pass to the template
 	 */
 	async render(template, data) {
-		return new Promise((resolve, reject) => {
+		return new Promise(resolve => {
 			this.engine.render(template, data, (error, response) => {
 				if (error) {
-					reject(new SaplingError(error));
+					resolve(new SaplingError(error));
 				}
 
 				resolve(response);

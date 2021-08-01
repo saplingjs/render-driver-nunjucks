@@ -22,7 +22,7 @@ export default class Nunjucks extends Interface {
 
 		this.engine = nunjucks.configure(this.viewsPath, {
 			autoescape: true,
-			noCache: !(this.app.config.production === 'on' || this.app.config.production === true)
+			noCache: !(this.app.config.production === 'on' || this.app.config.production === true),
 		});
 	}
 

@@ -1,10 +1,13 @@
-const test = require('ava');
-const path = require('path');
+import test from 'ava';
+import path from 'path';
+import { fileURLToPath } from 'url';
 
-const SaplingError = require('@sapling/sapling/lib/SaplingError');
+import SaplingError from '@sapling/sapling/lib/SaplingError.js';
 
-const Nunjucks = require('../index');
-const { get } = require('http');
+import Nunjucks from '../index.js';
+
+
+const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
 
 test.before(t => {

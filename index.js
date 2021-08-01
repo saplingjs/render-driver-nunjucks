@@ -4,13 +4,13 @@
 
 
 /* Dependencies */
-const nunjucks = require('nunjucks');
-const Interface = require('@sapling/sapling/drivers/render/Interface');
+import nunjucks from 'nunjucks';
+import Interface from '@sapling/sapling/drivers/render/Interface.js';
 
-const SaplingError = require('@sapling/sapling/lib/SaplingError');
+import SaplingError from '@sapling/sapling/lib/SaplingError.js';
 
 
-module.exports = class Nunjucks extends Interface {
+export default class Nunjucks extends Interface {
 	/**
 	 * Initialise Nunjucks
 	 */
@@ -77,4 +77,4 @@ module.exports = class Nunjucks extends Interface {
 
 		this.engine.addExtension('GetExtension', new GetExtension());
 	}
-};
+}

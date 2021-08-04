@@ -55,6 +55,9 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
+      - name: Install peer dependencies
+        run: npx npm-install-peers
+
       - name: Run test
         run: npm run test
 
@@ -70,6 +73,9 @@ jobs:
 
       - name: Install dependencies
         run: npm ci
+
+      - name: Install peer dependencies
+        run: npx npm-install-peers
 
       - name: Run test
         run: npm run test

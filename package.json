@@ -1,7 +1,7 @@
 {
   "name": "@sapling/render-driver-nunjucks",
   "version": "0.1.0",
-  "license": "MPL-2.0",
+  "license": "MIT",
   "description": "Nunjucks driver for Sapling",
   "type": "module",
   "keywords": [

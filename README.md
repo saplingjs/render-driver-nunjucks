@@ -1,6 +1,6 @@
 # Nunjucks driver for Sapling
 
-<a href="https://github.com/saplingjs/render-driver-nunjucks/actions"><img src="https://img.shields.io/github/workflow/status/saplingjs/render-driver-nunjucks/CI" alt="GitHub Workflow Status"></a>
+<a href="https://github.com/saplingjs/render-driver-nunjucks/actions"><img src="https://img.shields.io/github/actions/workflow/status/saplingjs/render-driver-nunjucks/test.yml?branch=master" alt="GitHub Workflow Status"></a>
 <a href="https://app.codecov.io/gh/saplingjs/render-driver-nunjucks"><img src="https://img.shields.io/codecov/c/gh/saplingjs/render-driver-nunjucks?token=E3NRW4IJW9" alt="Codecov"></a>
 <a href="https://www.npmjs.com/package/@sapling/render-driver-nunjucks"><img src="https://img.shields.io/npm/v/@sapling/render-driver-nunjucks.svg?sanitize=true" alt="Version"></a>
 <a href="https://github.com/saplingjs/render-driver-nunjucks/blob/master/LICENSE"><img src="https://img.shields.io/npm/l/@sapling/render-driver-nunjucks.svg?sanitize=true" alt="License"></a>

@@ -60,22 +60,3 @@ jobs:
 
       - name: Run test
         run: npm run test
-
-  test-node-12:
-    name: Node.js v12
-    runs-on: ubuntu-latest
-
-    steps:
-      - uses: actions/checkout@v3
-      - uses: actions/setup-node@v3
-        with:
-          node-version: '12'
-
-      - name: Install dependencies
-        run: npm ci
-
-      - name: Install peer dependencies
-        run: npx npm-install-peers
-
-      - name: Run test
-        run: npm run test

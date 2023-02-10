@@ -67,7 +67,7 @@ export default class Nunjucks extends Interface {
 				const key = args instanceof Object && Object.keys(args).find(arg => arg !== '__keywords');
 
 				/* Set var based on fetched data */
-				context.ctx[key] = await tags.get(args[key], args.role ? args.role : null);
+				context.ctx[key] = await tags.get(args[key], args.role ?? null);
 
 				if (cb) {
 					cb();
